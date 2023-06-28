@@ -9,9 +9,13 @@
   <ItemGroup>
     <ClInclude Include="random.h" />
     <ClInclude Include="FileIO.h" />
+    <ClInclude Include="Memory.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FIleIO.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Memory.cpp">
       <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
