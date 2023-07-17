@@ -2,6 +2,7 @@
 
 namespace meow
 {
+	Renderer g_renderer;
 
 	bool Renderer::Initialize()
 	{
