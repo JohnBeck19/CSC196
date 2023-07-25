@@ -1,17 +1,17 @@
 #pragma once
-#include "Actor.h"
+#include "Framework/Actor.h"
 
-class Player : public Actor
+class Player : public meow::Actor
 {
 public:
-	Player(float speed, float turnRate, const meow::Transform& transform, const meow::Model& model) :
+	Player(float speed, float turnRate, const meow::Transform& transform, const std::shared_ptr<meow::Model> model) :
 		Actor{ transform, model },
 		m_speed{ speed },
 		m_turnRate{ turnRate }
 	{}
-
 	void Update(float dt) override;
-	
+	void onCollision(Actor* actor) override;
+
 
 private:
 	float m_speed = 0;

@@ -1,13 +1,19 @@
 #include "Model.h"
 #include <sstream>
 
+
 namespace meow {
-	bool Model::load(const std::string& filename)
+	bool meow::Model::load(const std::string& filename)
 	{
 		std::string buffer;
-		meow::readFile(filename, buffer);
+		readFile(filename, buffer);
+
+
+		
 
 		std::istringstream stream(buffer);
+
+		stream >> m_color;
 		std::string line;
 		std::getline(stream,line);
 		
@@ -19,12 +25,14 @@ namespace meow {
 			m_points.push_back(point);
 		
 		}
+		GetRadius();
 		return true;
 	}
-	void Model::Draw(Renderer& renderer, const vec2& position, float rotation , float scale)
+	void meow::Model::Draw(meow::Renderer& renderer, const vec2& position, float rotation , float scale)
 	{
 		if (m_points.empty()) return;
 
+		renderer.SetColor(Color::ToInt(m_color.r), Color::ToInt(m_color.g), Color::ToInt(m_color.b), Color::ToInt(m_color.a));
 		for (int i = 0; i < m_points.size()-1; i++)
 		{
 			vec2 p1 = (m_points[i] * scale).Rotate(rotation)+ position;
@@ -37,6 +45,18 @@ namespace meow {
 	void Model::Draw(Renderer& renderer, const Transform& transform)
 	{
 		Draw(renderer, transform.position, transform.rotation, transform.scale);
+	}
+
+	float Model::GetRadius()
+	{
+		if (m_radius != 0) return m_radius;
+			//if length is bigger radius gets replaced 
+		for (auto point : m_points) {
+			float length = point.Length();
+			m_radius = Max(m_radius, length);
+
+		}
+		return m_radius;
 	}
 
 }

@@ -17,6 +17,7 @@
     </ClInclude>
     <ClInclude Include="Transform.h" />
     <ClInclude Include="MathUtils.h" />
+    <ClInclude Include="Color.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FIleIO.cpp">
