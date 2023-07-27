@@ -1,6 +1,6 @@
 #pragma once
 #include <cmath>
-
+#include <utility>
 namespace meow
 {
 	constexpr float Pi = 3.14159265359f;
@@ -42,5 +42,9 @@ namespace meow
 		if (min > max) std::swap(min, max);
 		return (value < min) ? min : (value > max) ? max : value;
 	}
-
+	template<typename T> //T is between 0 and 1
+	constexpr T Lerp(const T& a, const T& b, float t)
+	{
+		return (a * (1.0f - t)) + (b * t);
+	}
 }

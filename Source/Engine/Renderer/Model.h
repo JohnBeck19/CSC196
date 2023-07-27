@@ -16,9 +16,12 @@ namespace meow {
 		void Draw(Renderer& renderer, const Transform& transform);
 
 		float GetRadius();
+
+		Color m_color;
+		
 	private:
 		std::vector<vec2> m_points;
-		Color m_color;
+		
 		float m_radius = 0;
 	};
 

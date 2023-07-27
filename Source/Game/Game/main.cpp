@@ -9,24 +9,29 @@
 #include "Renderer/ModelManager.h"
 #include "Renderer/Font.h"
 #include "Renderer/Text.h"
+#include "SpaceGame.h"
+
+#include "Framework/Emitter.h"
+#include "Renderer/Particle.h"
+#include "Renderer/ParticleSystem.h"
+
 #include <iostream>
 #include <chrono>
 #include <vector>
 #include <thread>
+#include <Framework/Emitter.h>
 
 using namespace std;
 
 
 int main(int argc, char* argv[])
 {
-
-	
-
 	meow::MemoryTracker::Initialize();
 
 	//input initialization
 	meow::g_inputSystem.Initialize();
 
+	
 	//seed randomization
 	meow::seedRandom((unsigned int)time(nullptr));
 	//file path
@@ -35,27 +40,24 @@ int main(int argc, char* argv[])
 	//renderer initilization 
 	
 	meow::g_renderer.Initialize();
-	meow::g_renderer.CreateWindow("MEEEEOOOOWWWWW", 500, 500);
+	meow::g_renderer.CreateWindow("MEEEEOOOOWWWWW", 900, 700);
 	
 	//tranform initilization 
-	meow::Transform transform({400,300},0,3);
+	meow::Transform transform({450,350},0,3);
 	float speed = 500;
 	constexpr float turnRate = meow::DegToRad(180);
 	
 	//audio initilization
-	
 	meow::g_audioSystem.Initialize();
-	meow::g_audioSystem.AddAudio("Laser", "Laser.wav");
-	meow::g_audioSystem.AddAudio("Explosion", "Explosion.wav");
 
-	//create font / text objects
-	std::shared_ptr<meow::Font> font = std::make_shared<meow::Font>("space age.ttf", 24);
-	std::unique_ptr<meow::Text> text = std::make_unique<meow::Text>(font);
-	text->Create(meow::g_renderer, "NEUMONT", meow::Color{ 1, 1, 1, 1 });
 
-	//std::vector<meow::vec2> points{ {-10,5},{10,5},{0,-5},{-10,5} };
-	//meow::Model model{ points };
-	//loading model from txt file
+
+	unique_ptr<SpaceGame> game = make_unique<SpaceGame>();
+	game->Initialize();
+
+
+	//scene.Add(std::move(emitter));
+	
 
 
 	//vector<meow::Vector2> points;
@@ -68,23 +70,7 @@ int main(int argc, char* argv[])
 		//stars.push_back(Star(pos,vel));
 	//}
 	// 
-	meow::Scene scene;
-	unique_ptr<Player> player = make_unique<Player>(200.0f, meow::Pi, transform, meow::g_ModelManager.Get("Ship.txt"));
-	player->m_tag = "Player";
-	scene.Add(std::move(player));
-
-	//players and enemies creation
-	//Player player{200, meow::Pi, transform, model };
 	
-	//std::vector<Enemy> enemies;
-	for (int i = 0; i < 10; i++) {
-		unique_ptr<Enemy> enemy = make_unique<Enemy>(meow::randomf(75.0f, 150.0f), meow::Pi, meow::Transform{ {meow::random(meow::g_renderer.GetWidth()),meow::random(meow::g_renderer.GetHeight())}
-		,meow::randomf(meow::TwoPi),1.5f }, meow::g_ModelManager.Get("Ship.txt"));
-		//enemies.push_back(enemy);
-		enemy->m_tag = "Enemy";
-		scene.Add(std::move(enemy));	
-
-	}
 	
 	//game loop
 	bool quit = false;
@@ -102,19 +88,19 @@ int main(int argc, char* argv[])
 		}
 
 		//updates
-		scene.Update(meow::g_Time.GetDeltaTime());
+		game->Update(meow::g_Time.GetDeltaTime());
+		meow::g_particleSystem.Update(meow::g_Time.GetDeltaTime());
 		
-
 
 		meow::g_renderer.SetColor(0,0,0,0);
 		meow::g_renderer.BeginFrame();
 		meow::g_renderer.SetColor(meow::random(256), meow::random(256), meow::random(256), meow::random(256));
 
 		//draws
-		scene.Draw(meow::g_renderer);
-
+		game->Draw(meow::g_renderer);
+		meow::g_particleSystem.Draw(meow::g_renderer);
 		//text
-		text->Draw(meow::g_renderer, 100, 100);
+		//text->Draw(meow::g_renderer, 450, 100);
 	
 		
 		

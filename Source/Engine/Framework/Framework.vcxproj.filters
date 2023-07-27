@@ -9,12 +9,17 @@
   <ItemGroup>
     <ClInclude Include="Actor.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="Emitter.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Actor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Emitter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

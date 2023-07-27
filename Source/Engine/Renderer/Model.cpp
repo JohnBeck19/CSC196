@@ -9,8 +9,6 @@ namespace meow {
 		readFile(filename, buffer);
 
 
-		
-
 		std::istringstream stream(buffer);
 
 		stream >> m_color;

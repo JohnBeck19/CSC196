@@ -8,6 +8,7 @@ public:
 		m_speed{ speed }
 	{
 		m_lifespan = 2.0f; 
+		m_id = "bullet";
 	}
 	void onCollision(Actor* other) override;
 	void Update(float dt) override;

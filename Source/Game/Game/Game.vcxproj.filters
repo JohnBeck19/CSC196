@@ -19,10 +19,18 @@
     <ClCompile Include="Bullet.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="SpaceGame.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="HealthPad.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Bullet.h" />
+    <ClInclude Include="SpaceGame.h" />
+    <ClInclude Include="HealthPad.h" />
   </ItemGroup>
 </Project>
